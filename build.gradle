@@ -19,6 +19,9 @@ dependencies {
     compile 'com.loopj.android:android-async-http:+'
     compile "com.android.support:support-v4:18.0.+"
     compile "com.nostra13.universalimageloader:universal-image-loader:+"
+    compile project (':libs:actionbarsherlock')
+    compile project (':libs:slidingmenu')
+    compile project (':libs:wheel')
 }
 
 task wrapper(type: Wrapper) {
@@ -54,8 +57,13 @@ android {
     }
 }
 
+task appStart(type: Exec, dependsOn: ':installDebug') {
+    commandLine 'adb', 'shell', 'am', 'start', '-n', 'com.PPinera.Torrent_Movies/.Activities.MainActivity'    
+}
+
+
 // NDK Build http://www.armedpineapple.co.uk/2014/01/building-android-ndk-projects-with-gradle-and-travis-ci/
-import org.apache.tools.ant.taskdefs.condition.Os
+/*import org.apache.tools.ant.taskdefs.condition.Os
 
 task ndkBuild(type: Exec) {
     if (Os.isFamily(Os.FAMILY_WINDOWS)) {
@@ -67,4 +75,4 @@ task ndkBuild(type: Exec) {
 
 tasks.withType(JavaCompile) {
     compileTask -> compileTask.dependsOn ndkBuild
-}
+}*/
